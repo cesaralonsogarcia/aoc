@@ -2,6 +2,7 @@ import sys
 
 input = list(sys.stdin.readlines())
 
+# look at set
 puzzle = {}
 
 increments = [(-1, 1), (1, -1), (-1, -1,), (1, 1)]
