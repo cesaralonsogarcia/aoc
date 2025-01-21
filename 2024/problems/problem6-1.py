@@ -4,7 +4,7 @@ input = list(sys.stdin.readlines())
 
 puzzle = {}
 moves = [(0, -1), (1, 0), (0, 1), (-1, 0)]
-# moves = {
+# movesDict = {
 #     '^': (0, -1),
 #     'v': (0, 1),
 #     '>': (1, 0),
@@ -22,24 +22,31 @@ def main():
             if c != '\n':
                 puzzle[x , y] = c
     
-    start = list(key for key,value in puzzle.items() if value == '^')
+    xMax, yMax = max(puzzle) # get size of puzzle
+    start = list(key for key,value in puzzle.items() if value == '^') # get starting coordinate
     coordinate = start[0]
-
     j = 0
-    print(puzzle[4, 0])
-    for i in range(len(puzzle)):
-        print(coordinate, puzzle[coordinate])
+    walking = True
+    positions = 1 # counter for unique positions
+    while walking:
         step = tuple(sum(move) for move in zip(moves[j], coordinate))
-        for a, b in coordinate:
-            if (a > 0 and a < 9) and (b > 0 and b < 9): 
+        a, b = coordinate
+        if (a > 0 and a < xMax) and (b > 0 and b < yMax):
+            if coordinate != step:
                 if puzzle[step] != '#':
+                    puzzle[coordinate] = 'X'
                     coordinate = step
                 elif puzzle[step] == '#':
                     if j < 3:
                         j += 1
                     else:
                         j = 0
-            else:
-                break
+        else:
+            walking = False
+
+    for key, value in puzzle.items():
+        if value == 'X':
+            positions += 1
+    print(positions)
 
 main()
