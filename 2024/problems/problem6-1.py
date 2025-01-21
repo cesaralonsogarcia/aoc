@@ -30,14 +30,16 @@ def main():
     for i in range(len(puzzle)):
         print(coordinate, puzzle[coordinate])
         step = tuple(sum(move) for move in zip(moves[j], coordinate))
-        if puzzle[coordinate] != '#':
-            coordinate = step
-        elif puzzle[coordinate] == '#':
-            if j < 3:
-                j += 1
+        for a, b in coordinate:
+            if (a > 0 and a < 9) and (b > 0 and b < 9): 
+                if puzzle[step] != '#':
+                    coordinate = step
+                elif puzzle[step] == '#':
+                    if j < 3:
+                        j += 1
+                    else:
+                        j = 0
             else:
-                j = 0
-
-    print(coordinate)
+                break
 
 main()
