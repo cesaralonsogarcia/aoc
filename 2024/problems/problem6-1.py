@@ -37,6 +37,7 @@ def main():
                     puzzle[coordinate] = 'X'
                     coordinate = step
                 elif puzzle[step] == '#':
+                    # use modulus instead - to avoid hard coding
                     if j < 3:
                         j += 1
                     else:
